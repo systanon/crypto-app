@@ -1,9 +1,8 @@
-import { marketService, wsService } from '@/application'
+import { bybitAdapter } from '@/application'
+import type { Symbol } from '../lib/bybit-sdk/connector'
 import { defineStore } from 'pinia'
+import type { Body } from '@/lib/bybit-sdk/connector'
 
-export type Symbol = {
-  symbol: string
-}
 export type KLine = {
   start: number
 }
@@ -22,23 +21,14 @@ export const useMarketStore = defineStore('market', {
   },
   actions: {
     fetchSymbols() {
-      marketService.getAll().then(({ body }) => {
+      bybitAdapter.getSymbols().then(({ body }: { body: Body }) => {
         console.log('TCL: fetchSymbols -> body', body)
         this.symbols = body.result.list
         this.setCurrentSymbol('BTCUSDT')
       })
     },
     setCurrentSymbol(symbol: string) {
-      // ;(window as any).off?.()
       this.symbol = symbol
-      // marketService.getKlines(symbol).then(({ list }) => {
-      //   console.log('TCL: setCurrentSymbol -> list', list)
-      //   this.klines = list
-      //   ;(window as any).off = wsService.subscribe(`kline.1.${symbol}`, (data: any) => {
-      //     console.log(data)
-      //     this.klines.push(data)
-      //   })
-      // })
     }
   }
 })

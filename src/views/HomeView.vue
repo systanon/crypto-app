@@ -1,19 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-// import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
 import { useMarketStore } from '../stores/market.store'
 import { mapActions, mapState } from 'pinia'
-import { createChart } from 'lightweight-charts'
-import { marketService, wsService } from '../application'
-import { Chart } from '@/application/chart'
+import { Chart } from '../application/chart'
+import { bybitAdapter } from '../application'
+import { Channel, Exchange, Schema } from '../application/dom'
 
 export default defineComponent({
-  // setup() {
-  //   const marketStore = useMarketStore()
-
-  //   return { marketStore }
-  // },
   data() {
     return {
       chart: null as Chart | null
@@ -30,13 +23,24 @@ export default defineComponent({
   },
   watch: {
     symbol(v: string) {
-      this.chart?.setCTX(v)
+      this.chart?.setCtx({
+        symbol: v,
+        schema: Schema.Futures,
+        exchange: Exchange.TBybit,
+        channel: Channel.Candel
+      })
     }
   },
   mounted() {
-    this.chart = new Chart(this.$refs['chart'] as HTMLElement)
-
-    this.chart.setCTX(this.symbol)
+    this.chart = new Chart(bybitAdapter, this.$refs['chart'] as HTMLElement)
+    if (this.symbol) {
+      this.chart.setCtx({
+        symbol: this.symbol,
+        schema: Schema.Futures,
+        exchange: Exchange.TBybit,
+        channel: Channel.Candel
+      })
+    }
   }
 })
 </script>

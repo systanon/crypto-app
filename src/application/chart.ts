@@ -1,28 +1,30 @@
 import { createChart } from 'lightweight-charts'
-import type {
-  IChartApi,
-  ISeriesApi,
-  SeriesType,
-  Time,
-  MouseEventParams,
-  DeepPartial,
-  ChartOptions
-} from 'lightweight-charts'
-import { marketService, wsService } from '.'
+import type { Candel, Ctx, ExchangeAdapter, Message } from './dom'
+
+import type { IChartApi, DeepPartial, ChartOptions } from 'lightweight-charts'
 
 export class Chart {
   unsubscribe = () => {}
+  private readonly exchange: ExchangeAdapter
   private readonly chart: IChartApi
-  // private series: ISeriesApi<"Candlestick", HorzScaleItem>
   private series: ReturnType<typeof this.chart.addCandlestickSeries> | null = null
-  constructor(htmlElement: HTMLElement, options?: DeepPartial<ChartOptions>) {
+  constructor(
+    exchange: ExchangeAdapter,
+    htmlElement: HTMLElement,
+    options?: DeepPartial<ChartOptions>
+  ) {
+    this.exchange = exchange
     this.chart = createChart(htmlElement, options)
   }
-  public setCTX(symbol: string) {
+  public async setCtx(ctx: Ctx) {
+    console.log('TCL: Chart -> publicsetCtx -> ctx', ctx)
+    const caldels = await this.exchange.getCandels(ctx, 0, 1)
+    console.log('TCL: Chart -> publicsetCtx -> caldels', caldels)
     this.unsubscribe()
     if (this.series) {
       this.chart.removeSeries(this.series)
     }
+
     this.series = this.chart.addCandlestickSeries({
       upColor: '#26a69a',
       downColor: '#ef5350',
@@ -30,16 +32,47 @@ export class Chart {
       wickUpColor: '#26a69a',
       wickDownColor: '#ef5350'
     })
-    marketService.getKlines(symbol).then((result) => {
-      if (!result) return
-      console.log('TCL: setCurrentSymbol -> list', result.list)
-      // this.cache = result.list[0]
-      this.series?.setData(result.list.reverse())
-      this.chart.timeScale().fitContent()
-      this.unsubscribe = wsService.subscribe(`kline.1.${symbol}`, (data: any) => {
-        console.log(data)
-        this.series?.update(data)
-      })
+
+    this.series?.setData(caldels.reverse())
+    this.chart.timeScale().fitContent()
+
+    this.unsubscribe = this.exchange.subscribeCandel(ctx, (message: Message<Candel>) => {
+      console.log('TCL: Chart -> publicsetCtx -> message', message)
+      switch (message.action) {
+        case 'snapshot':
+          // const candels = message.data
+          // setData
+          break
+        case 'insert':
+          // const candel = message.data
+          //insert
+
+          break
+        case 'update':
+          // const candel = message.data
+          //update
+          try {
+            this.series?.update(message.data)
+          } catch (e) {
+            console.warn(e)
+          }
+          break
+        case 'upsert':
+          // const candel = message.data
+          //upsert
+          break
+        case 'delete':
+          // const candel = message.data
+          // delete
+          break
+        case 'reset':
+          // const candel = message.data
+          // reset
+          break
+        default:
+          console.error('Error', message)
+          break
+      }
     })
   }
 }
