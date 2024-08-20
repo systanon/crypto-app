@@ -27,8 +27,8 @@ export const useMarketStore = defineStore('market', {
         this.setCurrentSymbol('BTCUSDT')
       })
     },
-    setCurrentSymbol(symbol: string) {
-      this.symbol = symbol
+    setCurrentSymbol(symbol: string | null) {
+      this.symbol = symbol ?? ''
     }
   }
 })

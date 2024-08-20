@@ -16,7 +16,10 @@ export default defineComponent({
     ...mapActions(useMarketStore, ['fetchSymbols', 'setCurrentSymbol'])
   },
   computed: {
-    ...mapState(useMarketStore, ['symbols', 'klines', 'symbol'])
+    ...mapState(useMarketStore, ['symbols', 'klines', 'symbol']),
+    formatSymbols() {
+      return this.symbols.map(({ symbol }) => symbol)
+    }
   },
   created() {
     this.fetchSymbols()
@@ -48,28 +51,33 @@ export default defineComponent({
 <template>
   <div class="kline-page">
     <div class="kline-page__symbols">
-      <div class="symbols-header">{{ symbol }}</div>
-      <div class="symbols-list">
-        <div
-          v-for="symbol in symbols"
-          :key="symbol.symbol"
-          @click="setCurrentSymbol(symbol.symbol)"
-        >
-          {{ symbol.symbol }}
-        </div>
-      </div>
+      <!-- <v-spacer></v-spacer> -->
+      <!-- <v-skeleton-loader :loading="!formatSymbols.length" type="list-item-two-line"> -->
+        <!-- <div class="symbols-header">{{ symbol }}</div> -->
+         <v-row>
+          <v-col cols="4">
+            <v-select
+              :value="symbol"
+              :items="formatSymbols"
+              @update:modelValue="setCurrentSymbol"
+              label="Symbols"
+              ></v-select>
+
+          </v-col>
+
+         </v-row>
+          <!-- label="Symbols" -->
+      <!-- </v-skeleton-loader> -->
+      <!-- :loading="!formatSymbols.length" -->
     </div>
     <div ref="chart" class="kline-page__klines"></div>
   </div>
 </template>
 
-
 <style scoped>
 .kline-page {
-  display: flex;
+  display: grid;
+  grid-template-rows: min-content auto;
 }
-.kline-page__klines {
-  width: 1000px;
-  height: 1000px;
-}
+
 </style>
