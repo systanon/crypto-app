@@ -43,7 +43,10 @@ export class WSService {
     handlers.add(handler)
     this.handlers.set(topic, handlers)
     if (!exist) {
-      this.ws.send(JSON.stringify({ op: 'subscribe', args: [topic] }))
+      const payload = JSON.stringify({ op: 'subscribe', args: [topic] })
+      if (this.ws.readyState !== WebSocket.OPEN)
+        this.ws.addEventListener('open', () => this.ws.send(payload))
+      else this.ws.send(payload)
     }
     return () => this.unsubscribe(topic, handler)
   }
