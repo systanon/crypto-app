@@ -2,6 +2,9 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import vuetify from './plugins/vuetify'
 
+import { context } from '@/application'
+context.getConfig()
+
 import App from './App.vue'
 import router from './router'
 

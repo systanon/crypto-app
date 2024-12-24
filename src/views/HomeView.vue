@@ -3,7 +3,7 @@ import { defineComponent } from 'vue'
 import { useMarketStore } from '../stores/market.store'
 import { mapActions, mapState } from 'pinia'
 import { Chart } from '../application/chart'
-import { bybitAdapter } from '../application'
+import { bybitAdapter, context } from '../application'
 import { Channel, Exchange, Schema } from '../application/dom'
 
 export default defineComponent({
@@ -35,15 +35,9 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.chart = new Chart(bybitAdapter, this.$refs['chart'] as HTMLElement)
-    if (this.symbol) {
-      this.chart.setCtx({
-        symbol: this.symbol,
-        schema: Schema.Futures,
-        exchange: Exchange.TBybit,
-        channel: Channel.Candel
-      })
-    }
+    const chart = new Chart(bybitAdapter, this.$refs['chart'] as HTMLElement, context)
+    chart.init()
+    this.chart = chart
   }
 })
 </script>
@@ -53,20 +47,16 @@ export default defineComponent({
     <div class="kline-page__symbols">
       <!-- <v-spacer></v-spacer> -->
       <!-- <v-skeleton-loader :loading="!formatSymbols.length" type="list-item-two-line"> -->
-        <!-- <div class="symbols-header">{{ symbol }}</div> -->
-         <v-row>
-          <v-col cols="4">
-            <v-select
-              :value="symbol"
-              :items="formatSymbols"
-              @update:modelValue="setCurrentSymbol"
-              label="Symbols"
-              ></v-select>
+      <!-- <div class="symbols-header">{{ symbol }}</div> -->
+      <v-row>
+        <v-col cols="4">
+          <v-select :value="symbol" :items="formatSymbols" @update:modelValue="setCurrentSymbol"
+            label="Symbols"></v-select>
 
-          </v-col>
+        </v-col>
 
-         </v-row>
-          <!-- label="Symbols" -->
+      </v-row>
+      <!-- label="Symbols" -->
       <!-- </v-skeleton-loader> -->
       <!-- :loading="!formatSymbols.length" -->
     </div>
@@ -79,5 +69,4 @@ export default defineComponent({
   display: grid;
   grid-template-rows: min-content auto;
 }
-
 </style>

@@ -2,24 +2,32 @@ import { createChart } from 'lightweight-charts'
 import type { Candel, Ctx, ExchangeAdapter, Message } from './dom'
 
 import type { IChartApi, DeepPartial, ChartOptions } from 'lightweight-charts'
+import type { CTX } from '@/lib/context'
 
 export class Chart {
   unsubscribe = () => {}
   private readonly exchange: ExchangeAdapter
   private readonly chart: IChartApi
   private series: ReturnType<typeof this.chart.addCandlestickSeries> | null = null
+  public context: CTX
   constructor(
     exchange: ExchangeAdapter,
     htmlElement: HTMLElement,
+    context: CTX,
     options?: DeepPartial<ChartOptions>
   ) {
     this.exchange = exchange
     this.chart = createChart(htmlElement, options)
+    this.context = context
+  }
+  public init() {
+    const ctx = this.context.ctx
+    this.setCtx(ctx)
   }
   public async setCtx(ctx: Ctx) {
-    console.log('TCL: Chart -> publicsetCtx -> ctx', ctx)
     const caldels = await this.exchange.getCandels(ctx, 0, 1)
-    console.log('TCL: Chart -> publicsetCtx -> caldels', caldels)
+    this.context.setContext(ctx)
+
     this.unsubscribe()
     if (this.series) {
       this.chart.removeSeries(this.series)
