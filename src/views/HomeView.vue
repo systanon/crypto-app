@@ -6,7 +6,12 @@ import { Chart } from '../application/chart'
 import { bybitAdapter, context } from '../application'
 import { Channel, Exchange, Schema } from '../application/dom'
 
+import MainLayout  from '@/layouts/MainLayout.vue'
+
 export default defineComponent({
+  components: {
+    MainLayout
+  },
   data() {
     return {
       chart: null as Chart | null
@@ -43,30 +48,19 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="kline-page">
-    <div class="kline-page__symbols">
-      <!-- <v-spacer></v-spacer> -->
-      <!-- <v-skeleton-loader :loading="!formatSymbols.length" type="list-item-two-line"> -->
-      <!-- <div class="symbols-header">{{ symbol }}</div> -->
-      <v-row>
-        <v-col cols="4">
-          <v-select :value="symbol" :items="formatSymbols" @update:modelValue="setCurrentSymbol"
-            label="Symbols"></v-select>
-
-        </v-col>
-
-      </v-row>
-      <!-- label="Symbols" -->
-      <!-- </v-skeleton-loader> -->
-      <!-- :loading="!formatSymbols.length" -->
-    </div>
+  <MainLayout>
+    <template v-slot:left-panel>
+      <v-select :value="symbol" :items="formatSymbols" @update:modelValue="setCurrentSymbol"
+      label="Symbols"></v-select>
+  </template>
+  <template v-slot:main>
     <div ref="chart" class="kline-page__klines"></div>
-  </div>
+  </template>
+  </MainLayout>
 </template>
 
 <style scoped>
-.kline-page {
-  display: grid;
-  grid-template-rows: min-content auto;
+.kline-page__klines {
+height: calc(100% - var(--v-layout-top));
 }
 </style>
