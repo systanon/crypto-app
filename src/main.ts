@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import '@/css/reset.css'
+
 import { context } from '@/application'
 context.getConfig()
 
