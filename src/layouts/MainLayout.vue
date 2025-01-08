@@ -4,35 +4,69 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data() {
     return {
-      drawer: false
+      drawer: false,
+      isNavOpen: false
+    }
+  },
+  methods:{
+    toggleNav () {
+      this.isNavOpen = !this.isNavOpen;
     }
   }
 })
 </script>
 
 <template>
-    <v-layout class="h-100">
-      <v-app-bar
-        color="primary"
-        prominent
-      >
-        <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+  <div class="grid-container">
+    <header class="app-header" style="background-color: gray;" >
+      <button class="burger-menu" @click="toggleNav">
+        ☰
+      </button>
+      HEADER</header>
+    <nav style="background-color: blue;" class="app-navigation" :class="{ open: isNavOpen }">
+      <button class="burger-menu" @click="toggleNav">
+        X
+      </button><slot name="navigation"></slot></nav>
+    <main style="background-color: yellow;"  class="app-main"><slot name="main"></slot></main>
+    <footer class="app-footer" style="background-color: green;">Footer</footer>
 
-        <v-toolbar-title>My files</v-toolbar-title>
-
-        <v-spacer></v-spacer>
-      </v-app-bar>
-
-      <v-navigation-drawer
-        v-model="drawer"
-        :location="$vuetify.display.mobile ? 'bottom' : undefined"
-        temporary
-      >
-        <slot name="left-panel"></slot>
-      </v-navigation-drawer>
-
-      <v-main class="h-100">
-        <slot name="main"></slot>
-      </v-main>
-    </v-layout>
+  </div>
 </template>
+
+<style scoped>
+.grid-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: auto 1fr auto;
+  .app-header {
+    grid-column: 1/-1;
+  }
+  .burger-menu {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+  .app-main {
+    grid-column: 1/-1;
+  }
+  .app-footer {
+    grid-column: 1/-1;
+  }
+  .app-navigation {
+  background-color: blue;
+  color: white;
+  padding: 20px;
+  position: absolute;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 5;
+  }
+  .app-navigation.open {
+  transform: translateX(0);
+}
+}
+</style>

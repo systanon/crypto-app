@@ -49,7 +49,7 @@ export default defineComponent({
 
 <template>
   <MainLayout>
-    <template v-slot:left-panel>
+    <template v-slot:navigation>
       <v-select :value="symbol" :items="formatSymbols" @update:modelValue="setCurrentSymbol"
       label="Symbols"></v-select>
   </template>
@@ -61,6 +61,6 @@ export default defineComponent({
 
 <style scoped>
 .kline-page__klines {
-height: calc(100% - var(--v-layout-top));
+height: 100%;
 }
 </style>
