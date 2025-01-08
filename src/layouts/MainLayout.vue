@@ -19,10 +19,7 @@ export default defineComponent({
 <template>
   <div class="grid-container">
     <header class="app-header">
-      <button class="burger-menu" @click="toggleNav">
-        ☰
-      </button>
-      <slot name="header"></slot>
+      <slot name="header" :toggleNav="toggleNav"></slot>
     </header>
     <nav style="background-color: blue;" class="app-navigation" :class="{ open: isNavOpen }">
       <button class="burger-menu" @click="toggleNav">

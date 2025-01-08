@@ -8,11 +8,13 @@ import { Channel, Exchange, Schema } from '../application/dom'
 
 import MainLayout  from '@/layouts/MainLayout.vue'
 import UISelect  from '@/components/ui/select/UISelect.vue'
+import UIIcon from '@/components/icons/UIIcon.vue'
 
 export default defineComponent({
   components: {
     MainLayout,
-    UISelect
+    UISelect,
+    UIIcon
   },
   data() {
     return {
@@ -51,6 +53,9 @@ export default defineComponent({
 
 <template>
   <MainLayout>
+    <template v-slot:header="{ toggleNav }">
+      <UIIcon name="rotate-burger" @click="toggleNav" />
+    </template>
     <template v-slot:navigation>
       <UISelect :modelValue="symbol" :options="formatSymbols"
       @update:modelValue="setCurrentSymbol"
