@@ -14,6 +14,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@vueuse/components": "^12.3.0",
     "lightweight-charts": "^4.2.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.29",

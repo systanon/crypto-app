@@ -7,10 +7,12 @@ import { bybitAdapter, context } from '../application'
 import { Channel, Exchange, Schema } from '../application/dom'
 
 import MainLayout  from '@/layouts/MainLayout.vue'
+import UISelect  from '@/components/ui/select/UISelect.vue'
 
 export default defineComponent({
   components: {
-    MainLayout
+    MainLayout,
+    UISelect
   },
   data() {
     return {
@@ -50,8 +52,9 @@ export default defineComponent({
 <template>
   <MainLayout>
     <template v-slot:navigation>
-      <v-select :value="symbol" :items="formatSymbols" @update:modelValue="setCurrentSymbol"
-      label="Symbols"></v-select>
+      <UISelect :modelValue="symbol" :options="formatSymbols"
+      @update:modelValue="setCurrentSymbol"
+      />
   </template>
   <template v-slot:main>
     <div ref="chart" class="kline-page__klines"></div>
