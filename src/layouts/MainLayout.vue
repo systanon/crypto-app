@@ -8,8 +8,8 @@ export default defineComponent({
       isNavOpen: false
     }
   },
-  methods:{
-    toggleNav () {
+  methods: {
+    toggleNav() {
       this.isNavOpen = !this.isNavOpen;
     }
   }
@@ -18,17 +18,22 @@ export default defineComponent({
 
 <template>
   <div class="grid-container">
-    <header class="app-header" style="background-color: gray;" >
+    <header class="app-header">
       <button class="burger-menu" @click="toggleNav">
         ☰
       </button>
-      HEADER</header>
+      <slot name="header"></slot>
+    </header>
     <nav style="background-color: blue;" class="app-navigation" :class="{ open: isNavOpen }">
       <button class="burger-menu" @click="toggleNav">
         X
-      </button><slot name="navigation"></slot></nav>
-    <main style="background-color: yellow;"  class="app-main"><slot name="main"></slot></main>
-    <footer class="app-footer" style="background-color: green;">Footer</footer>
+      </button>
+      <slot name="navigation"></slot>
+    </nav>
+    <main class="app-main">
+      <slot name="main"></slot>
+    </main>
+    <footer class="app-footer"> <slot name="footer"></slot></footer>
 
   </div>
 </template>
@@ -39,34 +44,40 @@ export default defineComponent({
   height: 100%;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: auto 1fr auto;
+
   .app-header {
     grid-column: 1/-1;
   }
+
   .burger-menu {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: white;
-}
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+
   .app-main {
     grid-column: 1/-1;
   }
+
   .app-footer {
     grid-column: 1/-1;
   }
+
   .app-navigation {
-  background-color: blue;
-  color: white;
-  padding: 20px;
-  position: absolute;
-  height: 100%;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 5;
+    background-color: blue;
+    color: white;
+    padding: 20px;
+    position: absolute;
+    height: 100%;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 5;
   }
+
   .app-navigation.open {
-  transform: translateX(0);
-}
+    transform: translateX(0);
+  }
 }
 </style>
