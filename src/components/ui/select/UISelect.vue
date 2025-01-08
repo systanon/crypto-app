@@ -18,20 +18,25 @@
 </template>
 
 <script lang="ts">
-import { vOnClickOutside as onClickOutsideDirective  } from '@vueuse/components'
+import { vOnClickOutside as baseOnClickOutside } from '@vueuse/components'
 
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
+import type { Directive } from "vue";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type UISelectOption = Record<string, any> | string
 export type ModelValueObject = UISelectOption
 export type ModelValuePrimitive = number | string
 export type ModelValue = ModelValuePrimitive | ModelValueObject
+
+const vOnClickOutside: Directive = baseOnClickOutside;
+
 export default defineComponent({
   name: 'UISelect',
   emits: ['update:modelValue'],
   directives: {
-    onClickOutside: onClickOutsideDirective
+    onClickOutside: vOnClickOutside
   },
   props: {
     modelValue: {
