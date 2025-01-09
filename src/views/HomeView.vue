@@ -6,16 +6,7 @@ import { Chart } from '../application/chart'
 import { bybitAdapter, context } from '../application'
 import { Channel, Exchange, Schema } from '../application/dom'
 
-import MainLayout  from '@/layouts/MainLayout.vue'
-import UISelect  from '@/components/ui/select/UISelect.vue'
-import UIIcon from '@/components/icons/UIIcon.vue'
-
 export default defineComponent({
-  components: {
-    MainLayout,
-    UISelect,
-    UIIcon
-  },
   data() {
     return {
       chart: null as Chart | null
@@ -52,21 +43,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <MainLayout>
-    <template v-slot:header="{ toggleNav }">
-      <UIIcon name="rotate-burger" @click="toggleNav" />
-    </template>
-    <template v-slot:navigation="{  toggleNav }">
-      <UIIcon name="close-circle" @click="toggleNav" />
-
-      <UISelect :modelValue="symbol" :options="formatSymbols"
-      @update:modelValue="setCurrentSymbol"
-      />
-  </template>
-  <template v-slot:main>
     <div ref="chart" class="kline-page__klines"></div>
-  </template>
-  </MainLayout>
 </template>
 
 <style scoped>

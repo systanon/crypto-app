@@ -1,7 +1,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { mapActions, mapState } from 'pinia'
+import { useMarketStore } from '../stores/market.store'
+
+import MainHeader from '@/components/MainHeader.vue'
+import MainMenu from '@/components/MainMenu.vue';
 
 export default defineComponent({
+  components: {
+    MainHeader,
+    MainMenu
+  },
   data() {
     return {
       drawer: false,
@@ -9,23 +18,26 @@ export default defineComponent({
     }
   },
   methods: {
+    ...mapActions(useMarketStore, ['setCurrentSymbol']),
     toggleNav() {
       this.isNavOpen = !this.isNavOpen;
     }
-  }
+  },
+  computed: {
+    ...mapState(useMarketStore, ['symbols', 'klines', 'symbol']),
+    formatSymbols() {
+      return this.symbols.map(({ symbol }) => symbol)
+    }
+  },
 })
 </script>
 
 <template>
   <div class="grid-container">
-    <header class="app-header">
-      <slot name="header" :toggleNav="toggleNav"></slot>
-    </header>
-    <nav class="app-navigation" :class="{ open: isNavOpen }">
-      <slot name="navigation" :toggleNav="toggleNav"></slot>
-    </nav>
+    <MainHeader @handleClick="toggleNav" class="app-header"/>
+    <MainMenu @setCurrentSymbol="setCurrentSymbol" :symbols="formatSymbols" :symbol="symbol" @handleClick="toggleNav" :isNavOpen="isNavOpen"/>
     <main class="app-main">
-      <slot name="main"></slot>
+      <RouterView/>
     </main>
     <footer class="app-footer"> <slot name="footer"></slot></footer>
 
@@ -57,21 +69,6 @@ export default defineComponent({
 
   .app-footer {
     grid-column: 1/-1;
-  }
-
-  .app-navigation {
-    background-color: blue;
-    color: white;
-    padding: 20px;
-    position: absolute;
-    height: 100%;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    z-index: 5;
-  }
-
-  .app-navigation.open {
-    transform: translateX(0);
   }
 }
 </style>
