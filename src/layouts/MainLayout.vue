@@ -22,10 +22,7 @@ export default defineComponent({
       <slot name="header" :toggleNav="toggleNav"></slot>
     </header>
     <nav style="background-color: blue;" class="app-navigation" :class="{ open: isNavOpen }">
-      <button class="burger-menu" @click="toggleNav">
-        X
-      </button>
-      <slot name="navigation"></slot>
+      <slot name="navigation" :toggleNav="toggleNav"></slot>
     </nav>
     <main class="app-main">
       <slot name="main"></slot>

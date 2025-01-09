@@ -56,7 +56,9 @@ export default defineComponent({
     <template v-slot:header="{ toggleNav }">
       <UIIcon name="rotate-burger" @click="toggleNav" />
     </template>
-    <template v-slot:navigation>
+    <template v-slot:navigation="{  toggleNav }">
+      <UIIcon name="close-circle" @click="toggleNav" />
+
       <UISelect :modelValue="symbol" :options="formatSymbols"
       @update:modelValue="setCurrentSymbol"
       />
