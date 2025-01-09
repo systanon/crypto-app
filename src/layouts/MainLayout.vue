@@ -21,7 +21,7 @@ export default defineComponent({
     <header class="app-header">
       <slot name="header" :toggleNav="toggleNav"></slot>
     </header>
-    <nav style="background-color: blue;" class="app-navigation" :class="{ open: isNavOpen }">
+    <nav class="app-navigation" :class="{ open: isNavOpen }">
       <slot name="navigation" :toggleNav="toggleNav"></slot>
     </nav>
     <main class="app-main">
