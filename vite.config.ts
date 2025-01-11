@@ -36,5 +36,16 @@ export default defineConfig(async () => ({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+        @use "./src/sass/style.scss" as *;
+        @import "./src/css/reset.css";
+        @import "./src/css/theme.css";
+        `
+      }
+    }
   }
 }))
