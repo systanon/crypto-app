@@ -1,0 +1,85 @@
+:root,
+[data-theme='dark'] {
+  --bg-primary: #305cc0;
+
+  --scroll-rail: #fcc743;
+  --scroll-bar: #fcc743;
+
+  --text-color-primary: #fcc743;
+  --text-color-secondary: #305cc0;
+  --text-color-tertiary: #fefefe;
+
+  --bg-button-primary: #020100;
+  --bg-button-active: #fcc743;
+
+  --bg-icon-primary: #fcc743;
+  --bg-icon-secondary: #020100;
+  --bg-icon-tertiary: #fefefe;
+
+  --ui-border-primary: #fcc743;
+  --ui-border-error: #ef0d0d;
+  --ui-border-input: #aa9af0;
+
+  --bg-input: #fefefe;
+
+  --bg-btn-primary: #fcc743;
+
+  --bg-tooltip-primary: rgba(252, 199, 67, 0.7);
+  --error-color-tooltip: rgb(255, 47, 0);
+
+  --ui-color-arrow-pagination: #fcc743;
+  --ui-bg-btn-pagination: #fcc743;
+  --ui-bg-btn-active-pagination: #082dee;
+
+  --shadow-primary: 0 #{rem(2)} #{rem(4)} rgba(11, 12, 13, 0.5);
+  --shadow-primary-reverse: 0 #{rem(-2)} #{rem(4)} rgba(11, 12, 13, 0.5);
+  --shadow-secondary: 0 #{rem(8)} #{rem(16)} rgba(11, 12, 13, 0.5);
+  --ui-overlay-05: rgba(255, 255, 255, 0.05);
+  --ui-overlay-10: rgba(255, 255, 255, 0.1);
+  --ui-overlay-dark-15: rgba(0, 0, 0, 0.15);
+  --ui-overlay-dark-25: rgba(0, 0, 0, 0.25);
+  --ui-overlay-dark-50: rgba(0, 0, 0, 0.5);
+  --ui-overlay-85: rgba(29, 38, 44, 0.85);
+  --ui-overlay-highlight: rgba(84, 76, 39, 0.85);
+}
+[data-theme='light'] {
+  --bg-primary: #fcc743;
+
+  --scroll-rail: #fcc743;
+  --scroll-bar: #305cc0;
+
+  --text-color-primary: #305cc0;
+  --text-color-secondary: #020100;
+  --text-color-tertiary: #fefefe;
+
+  --bg-button-primary: #020100;
+  --bg-button-active: #305cc0;
+
+  --bg-icon-primary: #fefefe;
+  --bg-icon-secondary: #020100;
+  --bg-icon-tertiary: #fefefe;
+
+  --ui-border-primary: #020100;
+  --ui-border-error: #ef0d0d;
+  --ui-border-input: #c4b58f;
+
+  --bg-input: #fefefe;
+
+  --bg-btn-primary: #305cc0;
+
+  --bg-tooltip-primary: rgba(48, 92, 192, 0.7);
+  --error-color-tooltip: rgb(255, 47, 0);
+
+  --ui-color-arrow-pagination: #305cc0;
+  --ui-bg-btn-pagination: #305cc0;
+  --ui-bg-btn-active-pagination: #d8ca15;
+  --shadow-primary: 0 #{rem(2)} #{rem(4)} rgba(112, 113, 115, 0.5);
+  --shadow-primary-reverse: 0 #{rem(-2)} #{rem(4)} rgba(112, 113, 115, 0.5);
+  --shadow-secondary: 0 #{rem(8)} #{rem(16)} rgba(112, 113, 115, 0.5);
+  --ui-overlay-05: rgba(97, 97, 97, 0.05);
+  --ui-overlay-10: rgba(97, 97, 97, 0.1);
+  --ui-overlay-dark-15: rgba(97, 97, 97, 0.15);
+  --ui-overlay-dark-25: rgba(97, 97, 97, 0.25);
+  --ui-overlay-85: rgba(250, 251, 252, 0.85);
+  --ui-overlay-highlight: rgba(249, 236, 195, 0.85);
+}

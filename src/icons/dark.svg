@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <mask id="moon-mask">
+      <circle cx="100" cy="100" r="80" fill="white" />
+      <circle cx="120" cy="100" r="80" fill="black" />
+    </mask>
+  </defs>
+  <circle cx="100" cy="100" r="80" fill="lightgray" mask="url(#moon-mask)" />
+  
+  <circle cx="80" cy="70" r="10" fill="darkgray" mask="url(#moon-mask)" />
+  <circle cx="110" cy="110" r="15" fill="darkgray" mask="url(#moon-mask)" />
+  <circle cx="90" cy="130" r="8" fill="darkgray" mask="url(#moon-mask)" />
+
+  <circle cx="100" cy="100" r="80" fill="none" stroke="gray" stroke-width="5" mask="url(#moon-mask)">
+    <animate 
+      attributeName="r" 
+      from="75" 
+      to="85" 
+      dur="2s" 
+      repeatCount="indefinite" />
+  </circle>
+
+  <circle cx="80" cy="70" r="10" fill="darkgray" mask="url(#moon-mask)">
+    <animate 
+      attributeName="r" 
+      values="10;12;10" 
+      dur="3s" 
+      repeatCount="indefinite" />
+  </circle>
+  <circle cx="110" cy="110" r="15" fill="darkgray" mask="url(#moon-mask)">
+    <animate 
+      attributeName="r" 
+      values="15;17;15" 
+      dur="2.5s" 
+      repeatCount="indefinite" />
+  </circle>
+
+  <circle cx="50" cy="30" r="2" fill="white">
+    <animate 
+      attributeName="r" 
+      values="2;3;2" 
+      dur="1.5s" 
+      repeatCount="indefinite" />
+  </circle>
+  <circle cx="170" cy="50" r="2.5" fill="white">
+    <animate 
+      attributeName="r" 
+      values="2.5;3.5;2.5" 
+      dur="2s" 
+      repeatCount="indefinite" />
+  </circle>
+  <circle cx="30" cy="150" r="2" fill="white">
+    <animate 
+      attributeName="r" 
+      values="2;3;2" 
+      dur="1.8s" 
+      repeatCount="indefinite" />
+  </circle>
+  <circle cx="150" cy="170" r="2.5" fill="white">
+    <animate 
+      attributeName="r" 
+      values="2.5;4;2.5" 
+      dur="2.2s" 
+      repeatCount="indefinite" />
+  </circle>
+</svg>

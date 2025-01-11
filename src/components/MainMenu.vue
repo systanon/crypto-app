@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import UISelect  from '@/components/ui/select/UISelect.vue'
-import UIIcon from '@/components/icons/UIIcon.vue'
+import UIIcon from '@/components/ui/icon/UIIcon.vue'
 
 export default defineComponent({
   name: "MainMenu",
